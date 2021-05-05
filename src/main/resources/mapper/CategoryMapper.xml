@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mooc.mail.dao.CategoryMapper">
+    <resultMap id="category" type="com.mooc.mail.bean.Category">
+        <id property="id" column="id"></id>
+        <result property="parentId" column="parent_id"></result>
+        <result property="name" column="name"></result>
+        <result property="sortOrder" column="sort_order"></result>
+    </resultMap>
+    <select id="getAllCategory" resultMap="category">
+        select * from mall_category
+    </select>
+</mapper>

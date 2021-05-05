@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mooc.mail.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.mooc.mail.bean.User">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="question" jdbcType="VARCHAR" property="question" />
+        <result column="answer" jdbcType="VARCHAR" property="answer" />
+        <result column="role" jdbcType="INTEGER" property="role" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+
+    <select id="countByUsername" resultType="java.lang.Integer">
+       select count(*) from mall_user where username=#{username}
+    </select>
+
+    <select id="countByUserEmail" resultType="java.lang.Integer">
+        select count(*) from mall_user where email=#{email}
+    </select>
+
+    <select id="slectUserByUsername" resultType="com.mooc.mail.bean.User">
+        select * from mall_user where username=#{username}
+    </select>
+
+</mapper>

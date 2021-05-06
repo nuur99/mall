@@ -14,4 +14,12 @@ public interface CartService {
     ResponseVo list(Integer uid);
 
     ResponseVo update(Integer uid, Integer productId, CartsUpdateForm cartsUpdateForm);
+
+    ResponseVo delete(Integer uid, Integer productId);
+
+    ResponseVo selectAll(Integer uid);
+
+    ResponseVo unSelectAll(Integer uid);
+
+    ResponseVo cartSum(Integer id);
 }

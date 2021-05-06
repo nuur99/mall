@@ -1,4 +1,4 @@
-package com.mooc.mail.service;
+package com.mooc.mail.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -7,6 +7,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.mooc.mail.bean.Product;
 import com.mooc.mail.dao.ProductMapper;
+import com.mooc.mail.service.CategoryService;
+import com.mooc.mail.service.ProductService;
 import com.mooc.mail.vo.ProductVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;

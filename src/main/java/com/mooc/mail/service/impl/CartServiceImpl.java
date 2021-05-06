@@ -1,4 +1,4 @@
-package com.mooc.mail.service;
+package com.mooc.mail.service.impl;
 
 import com.google.gson.Gson;
 import com.mooc.mail.bean.Cart;
@@ -8,6 +8,7 @@ import com.mooc.mail.enumUtils.ProductEnum;
 import com.mooc.mail.enumUtils.ResponseEnum;
 import com.mooc.mail.form.CartsAddForm;
 import com.mooc.mail.form.CartsUpdateForm;
+import com.mooc.mail.service.CartService;
 import com.mooc.mail.vo.CartProductVo;
 import com.mooc.mail.vo.CatsVo;
 import com.mooc.mail.vo.ResponseVo;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -24,7 +26,7 @@ import java.util.function.Consumer;
 
 @Service
 @Slf4j
-public class CartServiceImpl implements CartService{
+public class CartServiceImpl implements CartService {
 
     private static final String CART_RADIS_KEY = "cart_%d";
     @Autowired
@@ -140,5 +142,74 @@ public class CartServiceImpl implements CartService{
         }
         opsForHash.put(s, String.valueOf(productId), gson.toJson(cart));
         return list(uid);
+    }
+
+    @Override
+    public ResponseVo delete(Integer uid, Integer productId) {
+        String s = String.format(CART_RADIS_KEY, uid);
+        HashOperations<String, String, String> opsForHash = redisTemplate.opsForHash();
+        String value = opsForHash.get(s, String.valueOf(productId));
+        if (StringUtil.isNullOrEmpty(value)) {
+            return ResponseVo.error(ResponseEnum.CART_PRODUCT_NOT_EXEIT);
+        }
+        opsForHash.delete(s, String.valueOf(productId));
+        return list(uid);
+    }
+
+    @Override
+    public ResponseVo selectAll(Integer uid) {
+        List<Cart> carts = listForCart(uid);
+        String s = String.format(CART_RADIS_KEY, uid);
+        HashOperations<String, String, String> opsForHash = redisTemplate.opsForHash();
+        carts.forEach(new Consumer<Cart>() {
+            @Override
+            public void accept(Cart cart) {
+                cart.setProductSelected(true);
+                opsForHash.put(s, String.valueOf(cart.getProductId()), gson.toJson(cart));
+            }
+        });
+
+        return list(uid);
+    }
+
+    @Override
+    public ResponseVo unSelectAll(Integer uid) {
+        List<Cart> carts = listForCart(uid);
+        String s = String.format(CART_RADIS_KEY, uid);
+        HashOperations<String, String, String> opsForHash = redisTemplate.opsForHash();
+        carts.forEach(new Consumer<Cart>() {
+            @Override
+            public void accept(Cart cart) {
+                cart.setProductSelected(false);
+                opsForHash.put(s, String.valueOf(cart.getProductId()), gson.toJson(cart));
+            }
+        });
+        return list(uid);
+    }
+
+    @Override
+    public ResponseVo cartSum(Integer uid) {
+        List<Cart> carts = listForCart(uid);
+        Integer sum = 0;
+        for (Cart cart : carts) {
+            sum = sum + cart.getQuantity();
+        }
+        return ResponseVo.success(sum);
+    }
+
+    public List<Cart> listForCart(Integer uid) {
+        String s = String.format(CART_RADIS_KEY, uid);
+        HashOperations<String, String, String> opsForHash = redisTemplate.opsForHash();
+        Map<String, String> entries = opsForHash.entries(s);
+        Collection<String> values = entries.values();
+        List<Cart> carts = new ArrayList<>();
+        values.forEach(new Consumer<String>() {
+            @Override
+            public void accept(String s) {
+                carts.add(gson.fromJson(s, Cart.class));
+
+            }
+        });
+        return carts;
     }
 }

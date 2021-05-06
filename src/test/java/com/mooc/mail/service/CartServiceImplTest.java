@@ -30,4 +30,11 @@ class CartServiceImplTest {
         ResponseVo update = cartService.update(1, 28, new CartsUpdateForm(5, false));
         log.info("update" + update);
     }
+
+    @Test
+    void delete() {
+        ResponseVo delete = cartService.delete(1, 28);
+        log.info("delete" + delete);
+
+    }
 }

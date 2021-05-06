@@ -15,6 +15,7 @@ public enum ResponseEnum {
         PRODUCT_NOT_EXEIT(11, "产品不存在"),
         CART_PRODUCT_NOT_EXEIT(14, "购物车产品不存在"),
         PRODUCT_STOCK_ERROR(13, "库存不足"),
+        SHIPPING_NOT_EXEIT(15, "地址不存在"),
         PRODUCT_OFF_SALE_OR_DELETE(12, "商品下架或者删除");
         Integer code;
         String desc;

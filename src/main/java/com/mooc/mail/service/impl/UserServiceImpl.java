@@ -1,9 +1,10 @@
-package com.mooc.mail.service;
+package com.mooc.mail.service.impl;
 
 import com.mooc.mail.bean.User;
 import com.mooc.mail.dao.UserMapper;
 import com.mooc.mail.enumUtils.ResponseEnum;
 import com.mooc.mail.enumUtils.UserEnum;
+import com.mooc.mail.service.UserService;
 import com.mooc.mail.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import org.springframework.util.DigestUtils;
 import java.nio.charset.StandardCharsets;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
     @Override

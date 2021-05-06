@@ -1,7 +1,8 @@
-package com.mooc.mail.service;
+package com.mooc.mail.service.impl;
 
 import com.mooc.mail.bean.Category;
 import com.mooc.mail.dao.CategoryMapper;
+import com.mooc.mail.service.CategoryService;
 import com.mooc.mail.vo.CategoryVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Service
-public class CategoryServiceImpl implements CategoryService{
+public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryMapper categoryMapper;

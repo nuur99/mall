@@ -44,8 +44,8 @@ public class ResponseVo<T> {
     public static <T> ResponseVo<T> dbRegisterError() {
         return new ResponseVo(ResponseEnum.DB_REGISTER_ERROR.getCode(), ResponseEnum.DB_REGISTER_ERROR.getDesc());
     }
-    public static <T> ResponseVo<T> error() {
-        return new ResponseVo(ResponseEnum.ERROR.getCode(), ResponseEnum.ERROR.getDesc());
+    public static <T> ResponseVo<T> error(ResponseEnum paramterError, String s) {
+        return new ResponseVo(ResponseEnum.ERROR.getCode(), s);
     }
     public static <T> ResponseVo<T> error(String msg) {
         return new ResponseVo(ResponseEnum.ERROR.getCode(), msg);

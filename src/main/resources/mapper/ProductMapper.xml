@@ -10,4 +10,13 @@
             </foreach>
         </if>
     </select>
+    <select id="getProductsByIdList" resultType="com.mooc.mail.bean.Product">
+        select * from mall_product where status = 1
+        <if test="IdList.size != 0">
+            and id in
+            <foreach collection="IdList" open="(" separator="," close=")" item="item">
+                #{item}
+            </foreach>
+        </if>
+    </select>
 </mapper>

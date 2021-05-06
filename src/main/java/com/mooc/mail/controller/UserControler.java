@@ -26,12 +26,7 @@ public class UserControler {
     private UserService userService;
 
     @PostMapping("/user/register")
-    public ResponseVo Register(@Valid @RequestBody UserRegisterForm userFrom,
-                               BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            log.error(bindingResult.getFieldError().getField() + bindingResult.getFieldError().getDefaultMessage());
-            return ResponseVo.paramterError(bindingResult.getFieldError().getField() + bindingResult.getFieldError().getDefaultMessage());
-        }
+    public ResponseVo Register(@Valid @RequestBody UserRegisterForm userFrom) {
         User user = new User();
         BeanUtils.copyProperties(userFrom, user);
         return userService.register(user);
@@ -39,11 +34,7 @@ public class UserControler {
 
     @PostMapping("/user/login")
     public ResponseVo Register(@Valid @RequestBody UserLoginForm userLoginForm,
-                               BindingResult bindingResult,
                                HttpServletRequest httpServletRequest) {
-        if (bindingResult.hasErrors()) {
-            return ResponseVo.paramterError(bindingResult.getFieldError().getField() + bindingResult.getFieldError().getDefaultMessage());
-        }
         ResponseVo<User> login = userService.login(userLoginForm.getUsername(), userLoginForm.getPassword());
         HttpSession session = httpServletRequest.getSession();
         session.setAttribute(CURRENT_USER, login.getData());

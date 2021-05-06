@@ -10,4 +10,6 @@ import java.util.List;
 @Mapper
 public interface ProductMapper extends BaseMapper<Product> {
     List<Product> getProductsByCategoryIdList(@Param("categoryIdList") List<Integer> categoryIdList);
+
+    List<Product> getProductsByIdList(@Param("IdList") List<Integer> IdList);
 }

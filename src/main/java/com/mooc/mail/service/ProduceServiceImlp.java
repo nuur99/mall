@@ -1,5 +1,8 @@
 package com.mooc.mail.service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.mooc.mail.bean.Product;
@@ -11,11 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 @Slf4j
 @Service
-public class ProduceServiceImlp implements ProductService{
+public class ProduceServiceImlp extends ServiceImpl<ProductMapper, Product> implements ProductService {
     @Autowired
     private ProductMapper productMapper;
     @Autowired

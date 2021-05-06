@@ -1,15 +1,12 @@
-package com.mooc.mail.bean;
+package com.mooc.mail.vo;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-@TableName("mall_product")
-public class Product {
+public class ProductDetailVo {
     private Integer id;
 
     private Integer categoryId;
@@ -33,4 +30,5 @@ public class Product {
     private Date createTime;
 
     private Date updateTime;
+
 }
